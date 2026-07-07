@@ -127,4 +127,4 @@ def download_csv(dataset: str):
         raise HTTPException(404, "unknown dataset")
     buf.seek(0)
     return StreamingResponse(iter([buf.getvalue()]), media_type="text/csv",
-                             headers={"Content-Disposition": f"attachment; filename=quantartha_{dataset}.csv"})
+                             headers={"Content-Disposition": f"attachment; filename=vittalens_{dataset}.csv"})

@@ -23,7 +23,7 @@ except ImportError:
 from backend import config
 from backend.utils import cache
 
-HEADERS = {"User-Agent": "Mozilla/5.0 (QuantArtha internal research tool)"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (VittaLens internal research tool)"}
 REQUEST_TIMEOUT = 12
 
 

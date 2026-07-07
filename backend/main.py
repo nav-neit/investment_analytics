@@ -1,4 +1,4 @@
-"""QuantArtha — FastAPI entry point.
+"""VittaLens — FastAPI entry point.
 
 Run from the repo root:  uvicorn backend.main:app --reload
 Serves the REST API under /api/* and the static frontend at /.
@@ -10,7 +10,7 @@ from fastapi.staticfiles import StaticFiles
 from backend.config import FRONTEND_DIR
 from backend.routers import alerts, chat, companies, indices, models, news
 
-app = FastAPI(title="QuantArtha", version="1.0.0",
+app = FastAPI(title="VittaLens", version="1.0.0",
               description="Financial analytics & intelligence platform for Indian ETF indices.")
 
 app.add_middleware(

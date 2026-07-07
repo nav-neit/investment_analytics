@@ -1,4 +1,4 @@
-/* QuantArtha — central API client, formatting helpers, shared chart defaults,
+/* VittaLens — central API client, formatting helpers, shared chart defaults,
    and the navbar alert bell. Loaded on every page before page scripts. */
 
 const API = {

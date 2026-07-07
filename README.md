@@ -1,4 +1,4 @@
-# QuantArtha — Financial Analytics & Intelligence Platform
+# VittaLens — Financial Analytics & Intelligence Platform
 
 Internal investment-team dashboard tracking five Indian ETF indices —
 **NIFTY 50, NIFTY Bank, NIFTY IT, CPSE, Bharat 22** — with a drill-down
@@ -9,20 +9,52 @@ context-aware assistant, and a signals/alerts module.
 - **Backend:** Python, FastAPI + Uvicorn. All data fetching, scraping, LLM
   calls and computation happen server-side; the frontend only consumes REST.
 
-## Quick start
+## Quick start (one command)
+
+The start scripts create a virtual environment on first run, install
+dependencies, and launch the server on **port 8030**:
 
 ```bash
-# 1. install dependencies (Python 3.11+)
-pip install -r backend/requirements.txt
-
-# 2. configure (optional — the app runs with zero config)
-copy .env.example .env        # then edit as needed
-
-# 3. run — single command, serves API + frontend
-uvicorn backend.main:app --reload
+./start_server.sh        # Linux / macOS server
+start_server.bat         # Windows
 ```
 
-Open **http://127.0.0.1:8000**. Interactive API docs at `/docs`.
+Open **http://127.0.0.1:8030** (or `http://<server-ip>:8030` when hosted).
+Interactive API docs at `/docs`.
+
+## Manual setup (what the scripts do)
+
+Requires Python 3.11+.
+
+```bash
+# 1. get the code onto the server and enter the project folder
+cd investment_dashboard
+
+# 2. create and activate a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate          # Linux/macOS
+#  .venv\Scripts\activate          # Windows (PowerShell/cmd)
+
+# 3. install dependencies inside the venv
+pip install -r backend/requirements.txt
+
+# 4. configure (optional — the app runs with zero config)
+cp .env.example .env               # Windows: copy .env.example .env
+
+# 5. start the server — serves the API and the frontend together
+uvicorn backend.main:app --host 0.0.0.0 --port 8030
+```
+
+Notes for hosting:
+
+- `--host 0.0.0.0` makes the app reachable from other machines; open port
+  8030 in the server's firewall/security group.
+- Use `--reload` only during development (auto-restarts on code changes).
+- To change the port, just change `--port` — the frontend calls the API with
+  relative URLs, so no code changes are needed.
+- To keep it running after you log out, run it under `nohup`, `tmux`, or a
+  systemd service, e.g.:
+  `nohup .venv/bin/uvicorn backend.main:app --host 0.0.0.0 --port 8030 &`
 
 With no configuration the app still fully works:
 
