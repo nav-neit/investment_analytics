@@ -1,0 +1,16 @@
+# keep the image lean — only backend/ and frontend/ are copied anyway
+.git
+.claude
+.venv
+__pycache__
+**/__pycache__
+*.pyc
+.env
+backend/data/cache/*
+backend/data/alert_rules.json
+backend/data/alert_history.json
+README.md
+start_server.sh
+start_server.bat
+Dockerfile
+docker-compose.yml

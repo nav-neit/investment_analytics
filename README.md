@@ -22,6 +22,52 @@ start_server.bat         # Windows
 Open **http://127.0.0.1:8030** (or `http://<server-ip>:8030` when hosted).
 Interactive API docs at `/docs`.
 
+## Deploy with Docker (recommended)
+
+No Python or venv needed on the server — just Docker. From the project root:
+
+```bash
+docker compose up -d --build
+```
+
+That single command builds the image, starts the container on port 8030 with
+auto-restart, and mounts a named volume so runtime data (API cache, alert
+rules & history) survives rebuilds. Open `http://<server-ip>:8030`.
+
+Configuration is optional: if a `.env` file exists next to
+`docker-compose.yml` (copy it from `.env.example`), Compose picks the values
+up automatically; without one, sensible defaults apply (LLM features off).
+After changing `.env` or code, redeploy with the same command:
+
+```bash
+docker compose up -d --build     # rebuild + replace in one step
+```
+
+Day-to-day commands:
+
+```bash
+docker compose logs -f           # follow logs
+docker compose restart           # restart the app
+docker compose down              # stop and remove (data volume is kept)
+docker compose down -v           # stop and also wipe cached data
+```
+
+Ollama note: inside a container, `localhost` refers to the container itself,
+so the compose file already defaults `OLLAMA_HOST` to
+`http://host.docker.internal:11434` (the machine running Docker). If Ollama
+runs on a different server, set `OLLAMA_HOST` in `.env` to its real
+`http://<ip>:11434`.
+
+Prefer plain docker commands? The equivalent is:
+
+```bash
+docker build -t vittalens .
+docker run -d --name vittalens -p 8030:8030 --restart unless-stopped \
+  -v vittalens-data:/app/backend/data --env-file .env vittalens
+```
+
+(omit `--env-file .env` if you have no `.env` file)
+
 ## Manual setup (what the scripts do)
 
 Requires Python 3.11+.

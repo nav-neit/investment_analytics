@@ -1,0 +1,39 @@
+# VittaLens — one-command deployment:
+#   docker compose up -d --build
+#
+# Configuration: if a .env file exists next to this file, Compose reads it
+# automatically and substitutes the ${VAR:-default} values below. No .env is
+# needed at all — every variable has a working default (LLM features off).
+# This uses plain variable interpolation, so it works on any Compose version.
+services:
+  vittalens:
+    build: .
+    image: vittalens
+    container_name: vittalens
+    ports:
+      - "8030:8030"
+    environment:
+      LLM_BACKEND: ${LLM_BACKEND:-none}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-haiku-4-5-20251001}
+      # inside a container, "localhost" is the container itself — reach an
+      # Ollama on the host machine via host.docker.internal
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://host.docker.internal:11434}
+      OLLAMA_FAST_MODEL: ${OLLAMA_FAST_MODEL:-llama3.2:3b}
+      OLLAMA_DEEP_MODEL: ${OLLAMA_DEEP_MODEL:-llama3.2:3b}
+      TTL_QUOTES: ${TTL_QUOTES:-600}
+      TTL_HISTORY: ${TTL_HISTORY:-3600}
+      TTL_FUNDAMENTALS: ${TTL_FUNDAMENTALS:-21600}
+      TTL_NEWS: ${TTL_NEWS:-1800}
+      TTL_LLM: ${TTL_LLM:-21600}
+    # lets host.docker.internal resolve on Linux too (no-op elsewhere)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    # Persist runtime data (API cache, alert rules/history, model outputs)
+    # across container rebuilds.
+    volumes:
+      - vittalens-data:/app/backend/data
+    restart: unless-stopped
+
+volumes:
+  vittalens-data:
