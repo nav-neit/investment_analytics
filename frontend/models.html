@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuantArtha — Model Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <a class="brand" href="index.html"><span class="q">Quant</span>Artha<small>financial intelligence</small></a>
+    <div class="nav-links">
+      <a href="index.html">Screener</a>
+      <a href="models.html">Model Analytics</a>
+      <a href="news.html">Market News</a>
+      <a href="assistant.html">Assistant</a>
+    </div>
+    <div class="bell-wrap">
+      <button class="bell-btn" id="bell-btn" title="Alerts">🔔<span class="bell-badge" id="bell-badge" style="display:none"></span></button>
+      <div class="bell-dropdown" id="bell-dropdown"></div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>Model Analytics</h1>
+    <p class="subtitle">Outputs of the in-house data-science models across the five tracked indices.</p>
+
+    <div class="stat-row" id="summary-row">
+      <div class="skeleton" style="height:90px"></div><div class="skeleton" style="height:90px"></div>
+      <div class="skeleton" style="height:90px"></div><div class="skeleton" style="height:90px"></div>
+    </div>
+
+    <div class="toolbar section">
+      <label style="color:var(--text-secondary)">Month range</label>
+      <input type="month" id="m-start"> <span style="color:var(--text-muted)">→</span> <input type="month" id="m-end">
+      <button class="btn" id="apply-range">Apply</button>
+      <button class="btn btn-ghost" id="clear-range">Clear</button>
+      <span class="spacer"></span>
+      <a class="btn" href="/api/alerts/digest" target="_blank" rel="noopener">📄 Weekly digest</a>
+    </div>
+
+    <div class="card section">
+      <div class="toolbar"><h2 style="margin:0">Long-term growth</h2><span class="spacer"></span>
+        <a class="btn" href="/api/models/growth/csv">⬇ CSV</a></div>
+      <div class="grid grid-2">
+        <div><div class="chart-box"><canvas id="growth-chart"></canvas></div></div>
+        <div><h2>YoY growth rate</h2><div class="chart-box"><canvas id="growthrate-chart"></canvas></div></div>
+      </div>
+      <div id="growth-table" class="section"></div>
+    </div>
+
+    <div class="card section">
+      <div class="toolbar"><h2 style="margin:0">Combined monthly delta — all indices</h2><span class="spacer"></span>
+        <a class="btn" href="/api/models/deltas/csv">⬇ CSV</a></div>
+      <div class="chart-box"><canvas id="delta-chart"></canvas></div>
+      <div id="delta-table" class="section"></div>
+    </div>
+
+    <div class="card section">
+      <div class="toolbar"><h2 style="margin:0">Index comparison</h2><span class="spacer"></span>
+        <a class="btn" href="/api/models/comparison/csv">⬇ CSV</a></div>
+      <div class="grid grid-2">
+        <div><h2>Valuation (P/E · P/B)</h2><div class="chart-box short"><canvas id="cmp-valuation"></canvas></div></div>
+        <div><h2>Returns (CAGR)</h2><div class="chart-box short"><canvas id="cmp-cagr"></canvas></div></div>
+      </div>
+      <div id="cmp-table" class="section"></div>
+    </div>
+
+    <div class="card section">
+      <div class="toolbar"><h2 style="margin:0">Predicted monthly allocation</h2><span class="spacer"></span>
+        <a class="btn" href="/api/models/allocations/csv">⬇ CSV</a></div>
+      <div class="chart-box tall"><canvas id="alloc-chart"></canvas></div>
+      <div id="alloc-table" class="section"></div>
+    </div>
+
+    <div class="card section">
+      <h2>⚡ Signals &amp; Alerts</h2>
+      <p class="subtitle" style="margin-bottom:1rem">Threshold rules evaluated on every data refresh. Triggered alerts appear in the 🔔 bell on all pages.</p>
+      <div class="rule-form">
+        <select id="rule-index"></select>
+        <select id="rule-metric"></select>
+        <select id="rule-op"><option value="&lt;">&lt;</option><option value="&gt;">&gt;</option></select>
+        <input type="number" id="rule-threshold" placeholder="threshold" step="0.1" style="width:110px">
+        <button class="btn btn-accent" id="rule-add">Add rule</button>
+      </div>
+      <div id="rules-list" class="section"></div>
+      <h2 class="section">Alert history</h2>
+      <div id="alert-history"></div>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

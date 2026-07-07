@@ -1,0 +1,44 @@
+/* QuantArtha global theme tokens — light theme.
+   Very light blue page plane, white cards, navy ink and accents.
+   Series colors are a CVD-validated 5-slot categorical palette for white
+   card surfaces. Fixed assignment — one slot per index, never cycled:
+     NIFTY 50 → blue, NIFTY Bank → teal, NIFTY IT → violet,
+     CPSE → dark gold, Bharat 22 → magenta.
+   --gain / --loss are reserved status colors, never used as series. */
+:root {
+  --bg: #F2F6FB;
+  --bg-alt: #E9EFF7;
+  --surface: #FFFFFF;
+  --surface-hover: #F0F5FB;
+  --border: rgba(23, 43, 77, 0.10);
+  --border-strong: rgba(23, 43, 77, 0.20);
+
+  --text: #16233A;
+  --text-secondary: #45566E;
+  --text-muted: #71809A;
+
+  --accent: #1E3A8A;            /* deep navy */
+  --accent-soft: rgba(30, 58, 138, 0.09);
+  --accent-contrast: #FFFFFF;   /* text on accent-filled elements */
+  --gain: #059669;
+  --loss: #DC2626;
+
+  --series-nifty50: #2A78D6;
+  --series-niftybank: #0E9866;
+  --series-niftyit: #4A3AA7;
+  --series-cpse: #B8860B;
+  --series-bharat22: #C23D6F;
+
+  --grid-line: #E2E9F2;
+  --grid-zero: #B9C6D8;
+  --axis-tick: #71809A;
+
+  --navbar-bg: rgba(255, 255, 255, 0.92);
+  --tooltip-bg: #1F2C44;        /* dark tooltip stays readable over any mark */
+  --tooltip-text: #F4F7FB;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 2px 10px rgba(23, 43, 77, 0.07);
+  --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}

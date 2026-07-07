@@ -1,0 +1,9 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+yfinance>=0.2.50
+requests>=2.32
+beautifulsoup4>=4.12
+feedparser>=6.0
+python-dotenv>=1.0
+pydantic>=2.7
+anthropic>=0.40   # only needed when LLM_BACKEND=anthropic

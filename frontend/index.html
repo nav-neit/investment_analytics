@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuantArtha — Index Screener</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <a class="brand" href="index.html"><span class="q">Quant</span>Artha<small>financial intelligence</small></a>
+    <div class="nav-links">
+      <a href="index.html">Screener</a>
+      <a href="models.html">Model Analytics</a>
+      <a href="news.html">Market News</a>
+      <a href="assistant.html">Assistant</a>
+    </div>
+    <div class="bell-wrap">
+      <button class="bell-btn" id="bell-btn" title="Alerts">🔔<span class="bell-badge" id="bell-badge" style="display:none"></span></button>
+      <div class="bell-dropdown" id="bell-dropdown"></div>
+    </div>
+  </nav>
+
+  <main class="container" id="view"></main>
+
+  <script src="js/api.js"></script>
+  <script src="js/screener.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>
